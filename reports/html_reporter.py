@@ -1,4 +1,4 @@
-"""Interactive Cybersecurity SaaS HTML Report Generator for PromptShield.
+﻿"""Interactive Cybersecurity SaaS HTML Report Generator for PromptShield.
 
 Produces a self-contained, presentation-ready HTML dashboard featuring:
 - Enterprise Dark Theme: Deep Midnight Indigo, Dark Navy, Electric Violet & Cyan accents
@@ -33,31 +33,31 @@ class HtmlReporter:
                 "color": "#45D9E8",
                 "bg_glow": "rgba(69, 217, 232, 0.25)",
                 "border": "rgba(69, 217, 232, 0.6)",
-                "verdict": "Exceptional Hardening — Zero Critical Leaks Detected",
+                "verdict": "Exceptional Hardening â€” Zero Critical Leaks Detected",
             },
             "B": {
                 "color": "#9270FF",
                 "bg_glow": "rgba(146, 112, 255, 0.25)",
                 "border": "rgba(146, 112, 255, 0.6)",
-                "verdict": "Resilient Posture — Low Residual Risk Under Attack",
+                "verdict": "Resilient Posture â€” Low Residual Risk Under Attack",
             },
             "C": {
                 "color": "#FFC837",
                 "bg_glow": "rgba(255, 200, 55, 0.25)",
                 "border": "rgba(255, 200, 55, 0.6)",
-                "verdict": "Moderate Risk — Guardrail Gaps Detected in Policy/Prompt",
+                "verdict": "Moderate Risk â€” Guardrail Gaps Detected in Policy/Prompt",
             },
             "D": {
                 "color": "#FF8C42",
                 "bg_glow": "rgba(255, 140, 66, 0.25)",
                 "border": "rgba(255, 140, 66, 0.6)",
-                "verdict": "High Vulnerability Exposure — Critical Guardrails Breached",
+                "verdict": "High Vulnerability Exposure â€” Critical Guardrails Breached",
             },
             "F": {
                 "color": "#FF4B72",
                 "bg_glow": "rgba(255, 75, 114, 0.25)",
                 "border": "rgba(255, 75, 114, 0.6)",
-                "verdict": "Critically Vulnerable — Multiple Exploits Succeeded",
+                "verdict": "Critically Vulnerable â€” Multiple Exploits Succeeded",
             },
         }
 
@@ -165,6 +165,8 @@ class HtmlReporter:
             escaped_search = html.escape(search_corpus)
 
             evidence_color = "#FF4B72" if res.status == DetectionStatus.FAIL else "#45D9E8"
+            copy_prompt = escaped_prompt.replace("`", "\\")
+            copy_response = escaped_response.replace("`", "\\")
 
             row_html = f"""
             <tr class="data-row" data-type="{filter_type}" data-search="{escaped_search}">
@@ -230,8 +232,8 @@ class HtmlReporter:
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🧬 PromptShield Enterprise Audit: {summary.target_name}</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧬</text></svg>">
+  <title>ðŸ§¬ PromptShield Enterprise Audit: {summary.target_name}</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>ðŸ§¬</text></svg>">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     /* =========================================================================
@@ -1338,7 +1340,7 @@ class HtmlReporter:
        ======================================================================= -->
   <aside class="sidebar">
     <a href="#" class="sidebar-brand">
-      <div class="brand-icon-wrapper">🧬</div>
+      <div class="brand-icon-wrapper">ðŸ§¬</div>
       <div class="brand-text-col">
         <div class="brand-title">PromptShield</div>
         <div class="brand-sub">AI Security Suite</div>
@@ -1419,7 +1421,7 @@ class HtmlReporter:
       <div class="kpi-card grade-card">
         <div class="kpi-header">
           <span class="kpi-label">SECURITY GRADE</span>
-          <div class="kpi-icon-pill">🧬</div>
+          <div class="kpi-icon-pill">ðŸ§¬</div>
         </div>
         <div class="grade-badge-display">
           <div class="grade-circle">{summary.letter_grade}</div>
@@ -1434,7 +1436,7 @@ class HtmlReporter:
       <div class="kpi-card risk-card">
         <div class="kpi-header">
           <span class="kpi-label">VULNERABILITY RISK SCORE</span>
-          <div class="kpi-icon-pill" style="color: {risk_color};">⚡</div>
+          <div class="kpi-icon-pill" style="color: {risk_color};">âš¡</div>
         </div>
         <div class="kpi-big-value" style="color: {risk_color};">
           {summary.risk_score}<span style="font-size: 1rem; color: var(--text-muted); font-weight: 500;"> / 100</span>
@@ -1449,7 +1451,7 @@ class HtmlReporter:
       <div class="kpi-card vuln-card">
         <div class="kpi-header">
           <span class="kpi-label">CONFIRMED VULNERABILITIES</span>
-          <div class="kpi-icon-pill" style="color: {'#45D9E8' if summary.confirmed_vulnerabilities == 0 else '#FF4B72'};">🚨</div>
+          <div class="kpi-icon-pill" style="color: {'#45D9E8' if summary.confirmed_vulnerabilities == 0 else '#FF4B72'};">ðŸš¨</div>
         </div>
         <div class="kpi-big-value" style="color: {'#45D9E8' if summary.confirmed_vulnerabilities == 0 else '#FF4B72'};">
           {summary.confirmed_vulnerabilities}
@@ -1461,7 +1463,7 @@ class HtmlReporter:
       <div class="kpi-card defense-card">
         <div class="kpi-header">
           <span class="kpi-label">ATTACK DEFENSE RATE</span>
-          <div class="kpi-icon-pill" style="color: var(--accent-violet);">🛡️</div>
+          <div class="kpi-icon-pill" style="color: var(--accent-violet);">ðŸ›¡ï¸</div>
         </div>
         <div class="kpi-big-value" style="color: var(--accent-violet);">
           {summary.attack_defense_rate_pct}%
@@ -1473,7 +1475,7 @@ class HtmlReporter:
       <div class="kpi-card control-card">
         <div class="kpi-header">
           <span class="kpi-label">CONTROL BENCHMARKS</span>
-          <div class="kpi-icon-pill" style="color: var(--accent-cyan);">⚖️</div>
+          <div class="kpi-icon-pill" style="color: var(--accent-cyan);">âš–ï¸</div>
         </div>
         <div class="kpi-big-value" style="color: var(--accent-cyan);">
           {summary.control_benchmarks_passed} / {summary.control_benchmarks_total}
@@ -1493,7 +1495,7 @@ class HtmlReporter:
         <!-- Chart 1: Exploit Severity Distribution -->
         <div class="chart-card">
           <div class="chart-header">
-            <span class="chart-title">🚨 Exploit Severity</span>
+            <span class="chart-title">ðŸš¨ Exploit Severity</span>
             <span class="chart-tag">CVSS Weighted</span>
           </div>
           <div class="chart-canvas-wrapper">
@@ -1504,7 +1506,7 @@ class HtmlReporter:
         <!-- Chart 2: Category Defense Bar Chart -->
         <div class="chart-card">
           <div class="chart-header">
-            <span class="chart-title">🛡️ Defense by Category</span>
+            <span class="chart-title">ðŸ›¡ï¸ Defense by Category</span>
             <span class="chart-tag">Repel Rate (%)</span>
           </div>
           <div class="chart-canvas-wrapper">
@@ -1515,7 +1517,7 @@ class HtmlReporter:
         <!-- Chart 3: OWASP Top 10 Reference Mapping -->
         <div class="chart-card">
           <div class="chart-header">
-            <span class="chart-title">🌐 OWASP LLM Top 10</span>
+            <span class="chart-title">ðŸŒ OWASP LLM Top 10</span>
             <span class="chart-tag">Posture (%)</span>
           </div>
           <div class="chart-canvas-wrapper">
@@ -1588,7 +1590,7 @@ class HtmlReporter:
       <div class="playbook-grid">
         <div class="playbook-card layer-1">
           <h4>
-            <span style="color: var(--accent-violet);">🛡️ Layer 1:</span> Input Guardrails & Token Hygiene
+            <span style="color: var(--accent-violet);">ðŸ›¡ï¸ Layer 1:</span> Input Guardrails & Token Hygiene
           </h4>
           <p>Pre-inference deterministic inspection to reject malicious tokens before model invocation.</p>
           <ul>
@@ -1600,7 +1602,7 @@ class HtmlReporter:
 
         <div class="playbook-card layer-2">
           <h4>
-            <span style="color: var(--accent-cyan);">🔒 Layer 2:</span> Output DLP & Canary Scrubbing
+            <span style="color: var(--accent-cyan);">ðŸ”’ Layer 2:</span> Output DLP & Canary Scrubbing
           </h4>
           <p>Post-inference Data Loss Prevention to stop sensitive token leaks before client delivery.</p>
           <ul>
@@ -1612,7 +1614,7 @@ class HtmlReporter:
 
         <div class="playbook-card layer-3">
           <h4>
-            <span style="color: #818CF8;">⚖️ Layer 3:</span> Deterministic Financial & Policy Gates
+            <span style="color: #818CF8;">âš–ï¸ Layer 3:</span> Deterministic Financial & Policy Gates
           </h4>
           <p>Hard boundary policy enforcement decoupling business authority from LLM text generation.</p>
           <ul>
@@ -1864,3 +1866,4 @@ Total Evaluated Cases: {summary.total_cases}`;
             f.write(html_content)
 
         return output_path
+
