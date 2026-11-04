@@ -10,9 +10,6 @@ jobs:
   security-audit:
     runs-on: ubuntu-latest
 
-    env:
-      PYTHONPATH: ${{ runner.temp }}
-
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -30,6 +27,7 @@ jobs:
       - name: Configure Package Import Path
         run: |
           ln -s "$GITHUB_WORKSPACE" "$RUNNER_TEMP/promptshield"
+          echo "PYTHONPATH=$RUNNER_TEMP" >> "$GITHUB_ENV"
 
       - name: Run Unit Tests
         run: |
