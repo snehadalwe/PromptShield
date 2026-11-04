@@ -28,7 +28,8 @@ jobs:
         run: |
           mkdir -p "$RUNNER_TEMP/pythonpath"
           ln -s "$GITHUB_WORKSPACE" "$RUNNER_TEMP/pythonpath/promptshield"
-          echo "PYTHONPATH=$RUNNER_TEMP/pythonpath" >> "$GITHUB_ENV"
+          export PYTHONPATH="$RUNNER_TEMP/pythonpath:$PYTHONPATH"
+          echo "PYTHONPATH=$RUNNER_TEMP/pythonpath:$PYTHONPATH" >> "$GITHUB_ENV"
           python -c "import promptshield; print('Package import successful')"
 
       - name: Run Unit Tests
