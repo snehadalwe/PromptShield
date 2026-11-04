@@ -1,0 +1,44 @@
+name: 🧬 PromptShield Security Gate
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  security-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyyaml pydantic requests pytest flask
+
+      - name: Run Unit Tests
+        run: |
+          python -m pytest tests/ -v
+
+      - name: Run 🧬 PromptShield Security Audit (Fail if Risk > 25)
+        run: |
+          python cli.py scan \
+            --target demo-hardened \
+            --agree-authorized \
+            --report all \
+            --output-dir reports/ \
+            --fail-on-risk 25.0
+
+      - name: Upload Security Audit Reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: promptshield-audit-reports
+          path: reports/
