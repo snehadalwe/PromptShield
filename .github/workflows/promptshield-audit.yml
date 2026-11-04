@@ -1,4 +1,4 @@
-name: 🧬 PromptShield Security Gate
+﻿name: PromptShield Security Gate
 
 on:
   push:
@@ -9,6 +9,10 @@ on:
 jobs:
   security-audit:
     runs-on: ubuntu-latest
+
+    env:
+      PYTHONPATH: ${{ runner.temp }}
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -23,11 +27,15 @@ jobs:
           python -m pip install --upgrade pip
           pip install pyyaml pydantic requests pytest flask
 
+      - name: Configure Package Import Path
+        run: |
+          ln -s "$GITHUB_WORKSPACE" "$RUNNER_TEMP/promptshield"
+
       - name: Run Unit Tests
         run: |
           python -m pytest tests/ -v
 
-      - name: Run 🧬 PromptShield Security Audit (Fail if Risk > 25)
+      - name: Run PromptShield Security Audit
         run: |
           python cli.py scan \
             --target demo-hardened \
