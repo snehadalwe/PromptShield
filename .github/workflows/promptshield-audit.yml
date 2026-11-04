@@ -13,6 +13,8 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
+        with:
+          path: promptshield
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -24,21 +26,17 @@ jobs:
           python -m pip install --upgrade pip
           pip install pyyaml pydantic requests pytest flask
 
-      - name: Configure Package Import Path
+      - name: Verify Package Import
         run: |
-          mkdir -p "$RUNNER_TEMP/pythonpath"
-          ln -s "$GITHUB_WORKSPACE" "$RUNNER_TEMP/pythonpath/promptshield"
-          export PYTHONPATH="$RUNNER_TEMP/pythonpath:$PYTHONPATH"
-          echo "PYTHONPATH=$RUNNER_TEMP/pythonpath:$PYTHONPATH" >> "$GITHUB_ENV"
-          python -c "import promptshield; print('Package import successful')"
+          python -c "import promptshield; print('PromptShield package imported successfully')"
 
       - name: Run Unit Tests
         run: |
-          python -m pytest tests/ -v
+          python -m pytest promptshield/tests/ -v
 
       - name: Run PromptShield Security Audit
         run: |
-          python cli.py scan \
+          python -m promptshield.cli scan \
             --target demo-hardened \
             --agree-authorized \
             --report all \
