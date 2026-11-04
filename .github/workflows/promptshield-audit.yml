@@ -2,9 +2,9 @@
 
 on:
   push:
-    branches: [ main, master ]
+    branches: [main, master]
   pull_request:
-    branches: [ main, master ]
+    branches: [main, master]
 
 jobs:
   security-audit:
@@ -26,8 +26,10 @@ jobs:
 
       - name: Configure Package Import Path
         run: |
-          ln -s "$GITHUB_WORKSPACE" "$RUNNER_TEMP/promptshield"
-          echo "PYTHONPATH=$RUNNER_TEMP" >> "$GITHUB_ENV"
+          mkdir -p "$RUNNER_TEMP/pythonpath"
+          ln -s "$GITHUB_WORKSPACE" "$RUNNER_TEMP/pythonpath/promptshield"
+          echo "PYTHONPATH=$RUNNER_TEMP/pythonpath" >> "$GITHUB_ENV"
+          python -c "import promptshield; print('Package import successful')"
 
       - name: Run Unit Tests
         run: |
