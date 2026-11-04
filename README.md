@@ -1,322 +1,291 @@
-🧬 PromptShield: AI Chatbot Prompt Injection Security Assessment Framework
+🧬 PromptShield
+Python-Based AI Chatbot Prompt Injection Security Assessment Framework
 
+PromptShield is a Python-based cybersecurity project designed to assess the security of AI chatbots and applications against prompt injection attacks.
 
+It automatically executes security test cases against chatbot targets, analyzes their responses, identifies potential vulnerabilities, calculates risk scores, and generates security reports.
 
+The framework supports both local simulated chatbot targets and authorized REST API endpoints, making it useful for learning and demonstrating AI application security testing.
 
+Note: PromptShield is an educational security assessment framework. Its results are based on configured test cases and detection methods and should not be treated as a guarantee of complete AI system security.
 
+🎯 Problem Statement
 
+AI chatbots and large language models are increasingly being integrated into business applications, customer support systems, and enterprise workflows.
 
+However, these applications can be exposed to prompt injection attacks, where specially crafted inputs attempt to manipulate the AI's instructions or bypass its intended security restrictions.
 
-Author: Snehal Dalwe
-Education: Third-Year Cybersecurity Engineering Student
-Domain: LLM Application Security, AI Red-Teaming, Automated Security Testing
-Framework Alignment: OWASP Top 10 for Large Language Model Applications
+This may result in:
 
-📌 1. What PromptShield Is
-
-PromptShield is a Python-based prompt injection vulnerability scanning and security assessment framework for AI chatbots and autonomous agents.
-
-Similar to how traditional vulnerability scanners test web applications for SQL Injection (SQLi) and Cross-Site Scripting (XSS), PromptShield evaluates AI chatbot responses against different prompt injection scenarios.
-
-It assesses areas such as:
-
-Direct Prompt Injection
-Sensitive Information Disclosure
-System Prompt Leakage
-Business Logic and Policy Bypasses
-
-The framework runs automated security tests, evaluates chatbot responses, calculates risk scores, and generates detailed security reports.
-
-🌍 2. The Industry Problem It Addresses
-
-Organizations increasingly use AI assistants connected to internal databases, customer support platforms, business applications, and enterprise tools.
-
-These AI systems rely on instructions to define their behavior and maintain security boundaries.
-
-However, prompt injection can manipulate how an AI system interprets instructions and untrusted user input.
-
-Potential consequences include:
-
-Exposure of confidential information.
-Disclosure of hidden system instructions.
+Disclosure of sensitive information.
+Leakage of hidden system instructions.
 Bypassing application policies.
 Unexpected chatbot behavior.
 Unauthorized actions in connected workflows.
 
-PromptShield addresses this challenge by providing a structured way to assess chatbot behavior through repeatable security tests.
+PromptShield addresses this problem by providing an automated framework to evaluate chatbot responses against different prompt injection scenarios.
 
-🎯 3. Why Prompt Injection Testing Matters
-Instruction Manipulation: Untrusted input may attempt to override intended chatbot instructions.
-Information Disclosure: Chatbots may reveal information that should remain protected.
-Business Logic Bypass: AI assistants may fail to follow application-specific rules.
-Security Regression: Changes to prompts, models, and application logic can introduce new weaknesses.
-Continuous Assessment: Repeatable testing helps developers evaluate chatbot behavior throughout development.
-⚡ 4. Main Features
-Extensible Test Library: YAML-based test cases covering direct injection, delimiter injection, encoding obfuscation, multi-turn scenarios, and policy bypasses.
-Benign Control Benchmarking: Includes legitimate requests to evaluate false positives and unnecessary refusals.
-Pluggable Target Adapters: Supports local simulated chatbots, generic REST APIs, and OpenAI-compatible endpoints.
-Composite Detection Engine: Combines canary detection, refusal classification, rule-based indicators, and prompt leakage checks.
-Dynamic Risk Scoring: Calculates a 0–100 vulnerability risk score and assigns an A–F grade.
-Comparative Analysis: Compares baseline and hardened scan results.
-Multiple Report Formats: Generates JSON, Markdown, and HTML reports.
-Interactive Security Dashboard: Provides visual summaries, filtering, search, and report export.
-CLI Integration: Supports command-line execution and configurable risk thresholds for CI workflows.
-🏗️ 5. Architecture
+💡 Solution
 
-PromptShield follows a modular architecture consisting of test libraries, target adapters, response detectors, scoring components, and reporting modules.
+PromptShield performs automated security assessments using a collection of predefined adversarial test cases.
 
-                  ┌──────────────────────────┐
-                  │      PromptShield CLI    │
-                  │   Authorization Check   │
-                  └────────────┬─────────────┘
-                               │
-          ┌────────────────────┼────────────────────┐
-          │                    │                    │
-          ▼                    ▼                    ▼
-   ┌──────────────┐    ┌──────────────┐    ┌──────────────┐
-   │ Attack/Test  │    │   Target     │    │ Execution    │
-   │   Library    │    │  Adapters    │    │  Controls    │
-   │    (YAML)    │    │ REST / Demo  │    │              │
-   └──────┬───────┘    └──────┬───────┘    └──────┬───────┘
-          └───────────────────┼──────────────────┘
-                              ▼
-                   ┌─────────────────────┐
-                   │ Composite Detector  │
-                   │                     │
-                   │ Canary Detection    │
-                   │ Refusal Classifier  │
-                   │ Prompt Leak Checks │
-                   │ Rule Indicators     │
-                   └──────────┬──────────┘
-                              ▼
-                   ┌─────────────────────┐
-                   │ Scoring & Analysis  │
-                   │                     │
-                   │ Risk Score          │
-                   │ Letter Grade        │
-                   │ Comparison Results  │
-                   └──────────┬──────────┘
-                              ▼
-                   ┌─────────────────────┐
-                   │ Report Generation   │
-                   │                     │
-                   │ JSON / Markdown     │
-                   │ HTML Dashboard      │
-                   └─────────────────────┘
-Project Directory Structure
+The framework sends test inputs to a configured chatbot target, analyzes its responses using multiple detection techniques, and calculates a security risk score.
+
+It evaluates areas such as:
+
+Direct prompt injection
+System prompt extraction
+Policy bypass attempts
+Delimiter injection
+Encoding obfuscation
+Multi-turn prompt injection
+Sensitive information disclosure
+
+The assessment results are classified using a risk score and security grade, helping developers understand potential weaknesses in their AI applications.
+
+✨ Features
+🧪 Automated prompt injection testing
+🛡️ AI chatbot security assessment
+🔍 Multiple attack-category test cases
+📂 YAML-based test case library
+🔌 Pluggable chatbot target adapters
+🚦 Response analysis and detection
+📊 Risk score calculation (0–100)
+🏅 Security grading system (A–F)
+⚖️ Baseline and hardened target comparison
+📄 JSON, Markdown, and HTML report generation
+📈 Interactive HTML security dashboard
+💻 Command-line interface (CLI)
+🧪 Automated test suite
+🔐 Authorization confirmation before scanning
+🏗️ Project Architecture
+                       User
+                         │
+                         ▼
+                  PromptShield CLI
+                         │
+                         ▼
+                  Attack/Test Library
+                       (YAML)
+                         │
+                         ▼
+                  Target Adapters
+                         │
+              ┌──────────┴──────────┐
+              │                     │
+              ▼                     ▼
+        Demo Chatbot          REST API Target
+              │                     │
+              └──────────┬──────────┘
+                         ▼
+                  Response Analysis
+                         │
+                         ▼
+                  Detection Engine
+                         │
+              ┌──────────┴──────────┐
+              │                     │
+              ▼                     ▼
+       Canary Detection       Refusal Detection
+              │                     │
+              └──────────┬──────────┘
+                         ▼
+                   Risk Scoring
+                         │
+                         ▼
+                 Security Assessment
+                         │
+                         ▼
+                  Report Generation
+                         │
+              ┌──────────┼──────────┐
+              │          │          │
+              ▼          ▼          ▼
+             JSON     Markdown     HTML
+                                    │
+                                    ▼
+                              Dashboard
+📁 Project Structure
 PromptShield/
 │
-├── attacks/
-│   ├── models.py
-│   ├── loader.py
-│   ├── system_prompt_extraction.yaml
-│   ├── direct_injection.yaml
-│   ├── policy_bypass.yaml
-│   ├── encoding_obfuscation.yaml
-│   ├── delimiter_injection.yaml
-│   └── multi_turn.yaml
+├── attacks/                 # YAML-based attack test library
 │
-├── targets/
-│   ├── base.py
-│   ├── demo_adapter.py
-│   ├── http_adapter.py
-│   └── openai_adapter.py
+├── demo_target/             # Simulated chatbot targets
 │
-├── detectors/
-│   ├── base.py
-│   ├── canary_detector.py
-│   ├── system_prompt_detector.py
-│   ├── rule_violation_detector.py
-│   ├── refusal_detector.py
-│   ├── llm_judge_detector.py
-│   └── composite_detector.py
+├── detectors/               # Response detection modules
 │
-├── scoring/
-│   ├── models.py
-│   └── calculator.py
+├── reports/                 # Report generation modules
 │
-├── reports/
-│   ├── json_reporter.py
-│   ├── markdown_reporter.py
-│   └── html_reporter.py
+├── scoring/                 # Risk scoring and grading
 │
-├── demo_target/
-│   ├── system_prompt.py
-│   ├── mock_engine.py
-│   ├── weak_bot.py
-│   ├── hardened_bot.py
-│   ├── server.py
-│   └── client.py
+├── targets/                 # Chatbot target adapters
 │
-├── tests/
+├── tests/                   # Automated test cases
 │
-├── reports_output/
+├── .github/
+│   └── workflows/           # GitHub Actions workflow
 │
-├── cli.py
-├── RESEARCH_FINDINGS.md
-├── .env.example
+├── cli.py                   # Command-line application
+├── RESEARCH_FINDINGS.md     # Research and benchmark findings
+├── .env.example             # Example environment configuration
 ├── .gitignore
 └── README.md
-💻 6. Technology Stack
-Technology	Purpose
-Python 3.11+	Core programming language
-Pydantic	Data validation and models
-PyYAML	YAML test case loading
-Requests	HTTP communication
-Flask	Local demo server
-Pytest	Automated testing
-Chart.js	Dashboard visualizations
-HTML/CSS/JavaScript	Interactive reporting dashboard
-Git & GitHub	Version control and project hosting
-GitHub Actions	Automated CI workflow
-⚙️ 7. Installation
-Step 1: Clone the repository
+⚙️ Technologies Used
+Python – Core programming language
+Pydantic – Data validation and models
+PyYAML – YAML test case management
+Requests – HTTP communication
+Flask – Local demo server
+Pytest – Automated testing
+HTML / CSS / JavaScript – Dashboard interface
+Chart.js – Dashboard visualizations
+Git & GitHub – Version control
+GitHub Actions – Workflow automation
+🚀 Installation
+1. Clone the repository
 git clone https://github.com/snehadalwe/PromptShield.git
 cd PromptShield
-Step 2: Create a virtual environment
+2. Create a virtual environment
 
-Windows PowerShell:
+Windows:
 
 python -m venv .venv
-.venv\Scripts\Activate.ps1
-Step 3: Install dependencies
-python -m pip install --upgrade pip
+
+Activate it:
+
+.\.venv\Scripts\Activate.ps1
+3. Install dependencies
 pip install pydantic pyyaml requests pytest flask
-🔑 8. Setup & Configuration
+▶️ Running the Local Demo
 
-PromptShield's built-in demo environment works without external API keys.
+PromptShield includes simulated chatbot targets for security testing.
 
-For testing an authorized OpenAI-compatible endpoint:
+Start the local demo server:
 
-Copy the example environment file.
-Copy-Item .env.example .env
-Configure the environment variables supported by your adapter.
-
-Example:
-
-OPENAI_API_KEY=your_api_key
-LLM_BASE_URL=https://api.openai.com/v1
-
-Security Note: Never upload API keys, passwords, or other credentials to GitHub. Keep .env excluded through .gitignore.
-
-🤖 9. Running the Local Demo Chatbot
-
-PromptShield includes simulated chatbot targets for local testing.
-
-Start the demo server
 python cli.py demo-server --port 5000
 
-The local demo environment allows you to experiment with chatbot security assessments without targeting an external production system.
+This allows you to experiment with the framework using local demo components.
 
-🚀 10. Running a Security Scan via CLI
-
-PromptShield includes an authorization confirmation requirement before scanning targets.
-
-Scan the weak demo target
+🛡️ Running a Security Scan
+1. Scan the weak demo chatbot
 python cli.py scan --target demo-weak --agree-authorized --report all --output-dir reports/weak
-Scan the hardened demo target
+2. Scan the hardened demo chatbot
 python cli.py scan --target demo-hardened --agree-authorized --report all --output-dir reports/hardened
-Scan a particular attack category
+3. Test a specific attack category
 python cli.py scan --target demo-weak --attacks policy_bypass --agree-authorized
-Scan a particular test case
-python cli.py scan --target demo-weak --attacks POL-004 --agree-authorized
-Scan an authorized REST chatbot
-python cli.py scan --target http --url http://127.0.0.1:5000/chat --prompt-field message --agree-authorized
-📊 11. Comparing Scan Results
 
-PromptShield supports differential benchmarking between baseline and candidate scan results.
+PromptShield evaluates chatbot responses and generates a security assessment based on the configured test cases.
+
+📊 Risk Assessment & Benchmark Results
+
+PromptShield calculates a risk score between 0 and 100 and assigns a security grade from A to F.
+
+The following results were recorded using the project's built-in synthetic demo targets.
+
+Metric	Weak Demo	Hardened Demo
+Total Test Cases	32	32
+Adversarial Tests	25	25
+Attacks Defended	5/25	25/25
+Control Tests Passed	7/7	7/7
+Risk Score	86.6	0.0
+Security Grade	F	A
+Findings	20	0
+
+Result: In the local synthetic benchmark, the hardened demo achieved a 100% attack defense rate, compared with 20% for the weak demo.
+
+These results demonstrate the framework's ability to distinguish between the two simulated chatbot configurations. They do not establish real-world security guarantees.
+
+⚖️ Comparing Scan Results
+
+PromptShield supports comparison between baseline and candidate scan reports.
 
 Example:
 
 python cli.py compare --baseline reports/weak/demo_weak_scan.json --candidate reports/hardened/demo_hardened_scan.json
-Verified Local Demo Benchmark Results
 
-The following results were recorded using 32 synthetic test cases against PromptShield's built-in weak and hardened demo chatbots.
+This helps evaluate security improvements after modifying chatbot configurations or defensive controls.
 
-Metric	Weak Demo	Hardened Demo
-Security Grade	F	A
-Risk Score	86.6/100	0.0/100
-Total Test Cases	32	32
-Adversarial Probes	25	25
-Probes Defended	5/25 (20%)	25/25 (100%)
-Control Tests Passed	7/7	7/7
-Confirmed Findings	20	0
-Attack Defense Rate	20%	100%
+📄 Report Generation
 
-Benchmark Interpretation: The results represent the behavior of the project's local synthetic demo targets. They are not a real-world security certification or a guarantee that other AI systems will achieve the same results.
+PromptShield supports three report formats:
 
-📄 12. Generating Reports
-
-PromptShield supports three report formats.
-
-Report	Description
-JSON	Structured scan results for automated processing
-Markdown	Readable security assessment summary
+Format	Purpose
+JSON	Structured scan results
+Markdown	Readable security assessment
 HTML	Interactive security dashboard
 
-Generate all report formats using:
+The HTML dashboard provides visual summaries of scan results, findings, and security assessment details.
 
-python cli.py scan --target demo-hardened --agree-authorized --report all
+🧪 Running Tests
 
-The output directory can be customized using --output-dir.
+Run the automated test suite:
 
-📈 13. Dashboard Usage
+python -m pytest -v
 
-The HTML security dashboard provides an interactive view of scan results.
+The project previously achieved 41/41 passing tests in the local development environment.
 
-Dashboard Features
-Instant Search: Search by attack ID, category, or finding details.
-Filter Tabs: View all tests, vulnerabilities, defended attacks, uncertain results, and controls.
-Visualizations: View severity and category-level summaries.
-Export: Print reports, save as PDF through the browser, and export raw JSON.
-Security Summary: Review the overall risk score and security grade.
+🔐 Security Approach
 
-Open a generated report in Windows PowerShell:
+PromptShield uses a combination of automated testing and response analysis techniques.
 
-Start-Process reports/weak/demo_weak_report.html
+Its security assessment process includes:
 
-The actual report filename depends on your scan output.
+Adversarial test case execution.
+Benign control testing.
+Canary-based detection.
+Refusal classification.
+Prompt leakage checks.
+Rule-based response analysis.
+Risk scoring and security grading.
 
-🧪 14. Test Execution
+This approach demonstrates important AI security concepts such as:
 
-PromptShield includes automated tests covering its adapters, detectors, scoring logic, demo targets, and CLI functionality.
+Prompt injection
+AI red teaming
+LLM application security
+Security testing automation
+Vulnerability assessment
+Risk analysis
+Security reporting
+🔮 Future Improvements
 
-Run all tests
-python -m pytest tests/ -v
-Check test collection
-python -m pytest tests/ --collect-only -q
+Possible future improvements include:
 
-Previously recorded result: 41/41 tests passed in the local development environment.
+Additional prompt injection test categories.
+More chatbot and LLM integrations.
+Advanced response analysis techniques.
+Expanded benchmark datasets.
+Improved dashboard visualizations.
+Historical scan tracking.
+Additional CI/CD integrations.
+More detailed vulnerability remediation recommendations.
+📸 Screenshots
 
-⚠️ 15. Limitations & Security Scope
+Screenshots of the PromptShield dashboard, scan results, and comparison reports can be added here.
 
-PromptShield is a security assessment and benchmarking tool. It does not guarantee that an AI chatbot is completely secure.
+Example:
 
-Prompt injection remains an evolving security challenge.
-A finite test library cannot identify every possible vulnerability.
-Detection results depend on the target and detector configuration.
-Synthetic demo results may differ from real-world AI application behavior.
-A low risk score should not be treated as proof of security.
+screenshots/
+├── dashboard.png
+├── weak-target-scan.png
+├── hardened-target-scan.png
+└── comparison-report.png
+⚠️ Disclaimer
 
-PromptShield should be used as one component of a broader security testing and defense-in-depth strategy.
+PromptShield is an educational cybersecurity project intended for learning, research, and authorized security assessments.
 
-⚖️ 16. Ethical & Authorized Testing Disclaimer
-
-PromptShield is developed for educational purposes and authorized security assessments.
-
-Test only systems you own or have explicit permission to assess.
+Only test AI systems you own or have explicit permission to assess.
 Do not attempt to access confidential information without authorization.
-Use synthetic information in demonstrations.
-Protect API credentials and generated reports.
-Follow applicable laws, organizational policies, and responsible disclosure practices.
-
-The author assumes no responsibility for unauthorized use of this project.
-
+Protect API keys and sensitive configuration details.
+Synthetic benchmark results do not guarantee real-world security.
 👩‍💻 Author
 
 Snehal Dalwe
-Third-Year Cybersecurity Engineering Student
 
-GitHub: @snehadalwe
+Cybersecurity Engineering Student
 
-⭐ If you find PromptShield interesting, explore the repository and its research findings!
+GitHub: https://github.com/snehadalwe
+
+⭐ Project Goal
+
+PromptShield demonstrates how Python programming, AI security concepts, automated testing, risk analysis, and reporting can be combined to build a practical AI chatbot security assessment framework.
